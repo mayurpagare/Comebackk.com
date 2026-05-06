@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOnTrack | Student Recovery Platform</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Link to CSS (We will add this in the next step) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo" onclick="app.navigate('landing')">
+                <i class="fa-solid fa-rocket"></i> BackOnTrack
+            </a>
+            <div class="nav-links">
+                <button class="theme-toggle" onclick="app.toggleTheme()">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="#" class="nav-link" onclick="app.navigate('landing')">Home</a>
+                <a href="#" class="nav-link" onclick="app.navigate('auth')">Login</a>
+                <button class="btn btn-primary" onclick="app.navigate('auth')">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. LANDING PAGE -->
+    <section id="landing-page" class="page-section fade-in">
+        <div class="container">
+            <div class="hero">
+                <h1>Your Comeback <span class="text-gradient">Starts Here</span></h1>
+                <p>Don't let backlog define your future. BackOnTrack helps you organize, plan, and recover your studies efficiently.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary" onclick="app.navigate('auth')">Get Started <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn btn-outline" onclick="app.navigate('auth')">Login</button>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-list-check feature-icon"></i>
+                    <h3>Smart Study Plan</h3>
+                    <p>AI-generated schedules tailored to your exam dates and difficulty levels.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-chart-line feature-icon"></i>
+                    <h3>Progress Tracker</h3>
+                    <p>Visualize your recovery with detailed charts and streak counters.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-bolt feature-icon"></i>
+                    <h3>Quick Prep</h3>
+                    <p>Access high-yield notes and repeated questions for last-minute revision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. AUTH PAGE (Login/Register) -->
+    <section id="auth-page" class="page-section hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2 id="auth-title">Welcome Back</h2>
+                    <p id="auth-subtitle">Enter your details to access your dashboard</p>
+                </div>
+                
+                <form id="auth-form" onsubmit="app.handleAuth(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <span id="auth-btn-text">Login</span>
+                    </button>
+                </form>
+
+                <div class="auth-toggle">
+                    <span id="auth-toggle-text">Don't have an account? Register</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. DASHBOARD LAYOUT (Sidebar + Content) -->
+    <section id="dashboard-page" class="page-section hidden">
+        <div class="dashboard-layout">
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-menu">
+                    <div class="menu-item active" onclick="app.navigate('dash-overview')">
+                        <i class="fa-solid fa-gauge"></i> Overview
+                    </div>
+                    <div class="menu-item" onclick="app.navigate('dash-subjects')">
+                        <i class="fa-solid fa-book"></i> Add Subjects
+                    </div>
+                    <div class="menu-item" onclick="app.navigate('dash-plan')">
+                        <i class="fa-solid fa-calendar-days"></i> Study Plan
+                    </div>
+                    <div class="menu-item" onclick="app.navigate('dash-progress')">
+                        <i class="fa-solid fa-chart-pie"></i> Progress
+                    </div>
+                    <div class="menu-item" onclick="app.navigate('dash-prep')">
+                        <i class="fa-solid fa-star"></i> Quick Prep
+                    </div>
+                    <div class="menu-item" onclick="app.logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                
+                <!-- DASHBOARD OVERVIEW -->
+                <div id="dash-overview" class="dash-section fade-in">
+                    <h2 id="welcome-msg">Welcome back, Student!</h2>
+                    <p class="text-muted">Here is your recovery status today.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card risk-high">
+                            <div class="stat-label">Risk Indicator</div>
+                            <div class="stat-value">High</div>
+                            <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-down"></i> 3 Exams approaching</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Current Streak</div>
+                            <div class="stat-value">🔥 5 Days</div>
+                            <div class="stat-trend trend-up"><i class="fa-solid fa-fire"></i> Keep it up!</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Subjects</div>
+                            <div class="stat-value">4</div>
+                            <div class="stat-trend">2 Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Overall Progress</div>
+                            <div class="stat-value">35%</div>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 35%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mathematics</td>
+                                        <td>Oct 24</td>
+                                        <td><span class="badge badge-easy">Completed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics</td>
+                                        <td>Oct 23</td>
+                                        <td><span class="badge badge-medium">In Progress</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD SUBJECTS -->
+                <div id="dash-subjects" class="dash-section hidden fade-in">
+                    <h2>Add Backlog Subjects</h2>
+                    <div class="form-container">
+                        <form onsubmit="app.addSubject(event)">
+                            <div class="form-group">
+                                <label>Subject Name</label>
+                                <input type="text" id="sub-name" class="form-control" required placeholder="e.g. Calculus II">
+                            </div>
+                            <div class="form-group">
+                                <label>Difficulty</label>
+                                <select id="sub-diff" class="form-control">
+                                    <option value="Easy">Easy</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Exam Date</label>
+                                <input type="date" id="sub-date" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Subject</button>
+                        </form>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="subjects-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Difficulty</th>
+                                    <th>Exam Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- STUDY PLAN -->
+                <div id="dash-plan" class="dash-section hidden fade-in">
+                    <h2>Your Study Plan</h2>
+                    <div class="plan-grid">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3>Mathematics</h3>
+                                <span class="badge badge-hard">Hard</span>
+                            </div>
+                            <p class="plan-time"><i class="fa-regular fa-clock"></i> 2 Hours / Day</p>
+                            <p class="text-muted">Focus: Integration & Differentiation</p>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 60%"></div></div>
+                        </div>
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3>Physics</h3>
+                                <span class="badge badge-medium">Medium</span>
+                            </div>
+                            <p class="plan-time"><i class="fa-regular fa-clock"></i> 1.5 Hours / Day</p>
+                            <p class="text-muted">Focus: Mechanics</p>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 40%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROGRESS -->
+                <div id="dash-progress" class="dash-section hidden fade-in">
+                    <h2>Progress Analytics</h2>
+                    <div class="chart-container">
+                        <canvas id="studyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- QUICK PREP -->
+                <div id="dash-prep" class="dash-section hidden fade-in">
+                    <h2>Quick Exam Prep</h2>
+                    <div class="prep-grid">
+                        <div class="video-section">
+                            <div class="video-placeholder">
+                                <div style="text-align: center;">
+                                    <i class="fa-brands fa-youtube" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                                    <p>Video Placeholder</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notes-section">
+                            <h3>Important Notes</h3>
+                            <ul class="notes-list">
+                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Formula Sheet: Chapter 4</li>
+                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Past Paper 2022</li>
+                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Key Concepts: Thermodynamics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </section>
+
+    <!-- Link to JS (We will add this in the next step) -->
+    <script src="script.js"></script>
+</body>
+</html>
