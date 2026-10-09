@@ -1,69 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BackOnTrack | Student Recovery Platform</title>
+    <title>Comeback.com | Engineering Student Backlog Recovery Platform</title>
+
+    <!-- Google Fonts: Characterful Display + Clean Body + Tactical Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js for Graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Link to CSS (We will add this in the next step) -->
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo" onclick="app.navigate('landing')">
-                <i class="fa-solid fa-rocket"></i> BackOnTrack
+                <span class="logo-icon-wrap"><i class="fa-solid fa-fire-flame-curved"></i></span>
+                <span class="logo-text">COMEBACK<span class="logo-dot">.COM</span></span>
+                <span class="logo-tag">RECOVERY OS</span>
             </a>
+            
             <div class="nav-links">
-                <button class="theme-toggle" onclick="app.toggleTheme()">
+                <a href="#live-demo-section" class="nav-link nav-desktop-only">Survival Demo</a>
+                <a href="#how-it-works" class="nav-link nav-desktop-only">How It Works</a>
+                <a href="#faq-section" class="nav-link nav-desktop-only">FAQ</a>
+                <button class="theme-toggle" onclick="app.toggleTheme()" aria-label="Toggle theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <a href="#" class="nav-link" onclick="app.navigate('landing')">Home</a>
-                <a href="#" class="nav-link" onclick="app.navigate('auth')">Login</a>
-                <button class="btn btn-primary" onclick="app.navigate('auth')">Get Started</button>
+                <a href="#" class="nav-link" id="nav-home-link" onclick="app.navigate('landing')">Home</a>
+                <a href="#" class="nav-link" id="nav-login-link" onclick="app.openAuth('login')">Login</a>
+                <button class="btn btn-primary" id="nav-get-started-btn" onclick="app.openAuth('register')">
+                    Start Recovery <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- 1. LANDING PAGE -->
     <section id="landing-page" class="page-section fade-in">
-        <div class="container">
+        <!-- Hero Section -->
+        <div class="container hero-container">
             <div class="hero">
-                <h1>Your Comeback <span class="text-gradient">Starts Here</span></h1>
-                <p>Don't let backlog define your future. BackOnTrack helps you organize, plan, and recover your studies efficiently.</p>
+                <div class="hero-badge">
+                    <span class="hero-badge-pulse"></span>
+                    <span>⚡ The No-BS Backlog Recovery System</span>
+                </div>
+                
+                <h1>
+                    Failed an exam? <span class="hero-subline">Don't panic.</span><br>
+                    <span class="text-gradient">Engineered for your comeback.</span>
+                </h1>
+                
+                <p class="hero-desc">
+                    Stop trying to cram 600-page textbooks in 48 hours. Our Survival Engine calculates the exact high-yield chapters you need to hit your 28 passing marks—with minimum syllabus and maximum pass probability.
+                </p>
+                
                 <div class="hero-btns">
-                    <button class="btn btn-primary" onclick="app.navigate('auth')">Get Started <i class="fa-solid fa-arrow-right"></i></button>
-                    <button class="btn btn-outline" onclick="app.navigate('auth')">Login</button>
+                    <button class="btn btn-primary btn-lg" onclick="app.openAuth('register')">
+                        <span>Get My Survival Plan</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <a href="#live-demo-section" class="btn btn-outline btn-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Try Live Calculator</span>
+                    </a>
                 </div>
-            </div>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fa-solid fa-list-check feature-icon"></i>
-                    <h3>Smart Study Plan</h3>
-                    <p>AI-generated schedules tailored to your exam dates and difficulty levels.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-chart-line feature-icon"></i>
-                    <h3>Progress Tracker</h3>
-                    <p>Visualize your recovery with detailed charts and streak counters.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-bolt feature-icon"></i>
-                    <h3>Quick Prep</h3>
-                    <p>Access high-yield notes and repeated questions for last-minute revision.</p>
+                <div class="hero-trust-bar">
+                    <div class="trust-item"><i class="fa-solid fa-check"></i> Based on 5-Year University PYQs</div>
+                    <div class="trust-item"><i class="fa-solid fa-check"></i> IT, Chemical, Mech & Arch</div>
+                    <div class="trust-item"><i class="fa-solid fa-check"></i> 100% Free for Students</div>
                 </div>
             </div>
         </div>
+
+        <!-- LIVE INTERACTIVE SURVIVAL CALCULATOR PREVIEW -->
+        <div id="live-demo-section" class="demo-section">
+            <div class="container">
+                <div class="section-badge">INTERACTIVE PREVIEW</div>
+                <h2 class="section-title">Test the Survival Engine Right Now</h2>
+                <p class="section-subtitle">See how many chapters you actually need to study to pass without cramming the whole syllabus.</p>
+
+                <div class="demo-card">
+                    <div class="demo-controls">
+                        <div class="demo-control-group">
+                            <label><i class="fa-solid fa-graduation-cap"></i> Select Department</label>
+                            <select id="demo-dept" class="form-control demo-select" onchange="window.updateDemoCalculator()">
+                                <option value="IT">💻 Information Technology</option>
+                                <option value="Mechanical">⚙️ Mechanical Engineering</option>
+                                <option value="Chemical">🧪 Chemical Engineering</option>
+                                <option value="Architecture">🎨 Architecture</option>
+                            </select>
+                        </div>
+
+                        <div class="demo-control-group">
+                            <label><i class="fa-solid fa-book-bookmark"></i> Select Subject</label>
+                            <select id="demo-subject" class="form-control demo-select" onchange="window.updateDemoCalculator()">
+                                <!-- Dynamically populated by demo script -->
+                            </select>
+                        </div>
+
+                        <div class="demo-control-group">
+                            <label><i class="fa-solid fa-hourglass-half"></i> Urgency / Days Left</label>
+                            <select id="demo-urgency" class="form-control demo-select" onchange="window.updateDemoCalculator()">
+                                <option value="panic">⚡ Emergency Sprint (3 – 5 Days)</option>
+                                <option value="standard" selected>🎯 Focused Survival (7 – 10 Days)</option>
+                                <option value="relaxed">📖 Strategic Prep (14+ Days)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Output Card -->
+                    <div class="demo-output" id="demo-output-card">
+                        <div class="demo-output-header">
+                            <div>
+                                <span class="demo-subject-tag" id="demo-output-subject">Applied Mathematics II</span>
+                                <h3 id="demo-output-title">3 of 6 Chapters Needed to Pass</h3>
+                            </div>
+                            <div class="demo-prob-badge" id="demo-output-prob">
+                                <span class="prob-num">91%</span>
+                                <span class="prob-label">Pass Confidence</span>
+                            </div>
+                        </div>
+
+                        <!-- Visual Cutoff Gauge -->
+                        <div class="cutoff-gauge-wrap">
+                            <div class="cutoff-gauge-labels">
+                                <span>0 Marks</span>
+                                <span class="cutoff-target-label"><i class="fa-solid fa-flag"></i> Passing Cutoff: 28 Marks</span>
+                                <span id="demo-gauge-total">70 Marks</span>
+                            </div>
+                            <div class="cutoff-gauge-track">
+                                <div class="cutoff-line" style="left: 40%;"></div>
+                                <div class="cutoff-gauge-fill" id="demo-gauge-fill" style="width: 48%;"></div>
+                            </div>
+                            <div class="cutoff-gauge-legend">
+                                <span class="legend-coverage"><span class="legend-dot" style="background:#ff5722;"></span> Covered: <strong id="demo-covered-marks">34 Marks</strong></span>
+                                <span class="legend-buffer"><span class="legend-dot" style="background:#10b981;"></span> Buffer: <strong id="demo-buffer-marks">+6 Marks Safe</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Recommended Chapters Box -->
+                        <div class="demo-chapters-box">
+                            <h4><i class="fa-solid fa-fire"></i> High-Yield Priority Chapters (Skip The Rest):</h4>
+                            <div class="demo-chapters-list" id="demo-chapters-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="demo-cta-row">
+                            <p class="demo-cta-hint"><i class="fa-solid fa-circle-info"></i> Create your free account to generate daily timelines, view PYQ repeated questions, and track study hours.</p>
+                            <button class="btn btn-primary" onclick="app.openAuth('register')">
+                                Save This Plan & Track Progress <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- THE BRUTAL TRUTH: COMPARISON SECTION -->
+        <div class="container section-padding">
+            <div class="section-badge">THE REALITY OF CLEARING BACKLOGS</div>
+            <h2 class="section-title">The Panic Way vs. The Comeback Method</h2>
+            <p class="section-subtitle">Engineering students fail backlogs not from lack of intelligence, but from bad exam triage.</p>
+
+            <div class="comparison-grid">
+                <!-- Bad Way -->
+                <div class="comparison-card panic-card">
+                    <div class="comparison-header">
+                        <div class="comparison-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div>
+                            <h3>The 3 AM Panic Method</h3>
+                            <span class="comparison-sub">How most students get trapped in backlogs</span>
+                        </div>
+                    </div>
+                    <ul class="comparison-list">
+                        <li><i class="fa-solid fa-xmark"></i> Trying to memorize all 6 massive syllabus modules in 2 nights</li>
+                        <li><i class="fa-solid fa-xmark"></i> Getting overwhelmed reading 600-page foreign reference textbooks</li>
+                        <li><i class="fa-solid fa-xmark"></i> Spending 4 hours mastering a 3-mark derivation proof</li>
+                        <li><i class="fa-solid fa-xmark"></i> Zero sleep before exam, brain fog, and scoring 21/70</li>
+                    </ul>
+                    <div class="comparison-outcome bad-outcome">
+                        Result: <strong>Another KT / Risk of Year Detention</strong>
+                    </div>
+                </div>
+
+                <!-- Good Way -->
+                <div class="comparison-card comeback-card">
+                    <div class="comparison-header">
+                        <div class="comparison-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div>
+                            <h3>The Comeback Recovery Protocol</h3>
+                            <span class="comparison-sub">The Pareto-optimized passing strategy</span>
+                        </div>
+                    </div>
+                    <ul class="comparison-list">
+                        <li><i class="fa-solid fa-check"></i> Reverse-engineer syllabus: Master the 3 chapters carrying 60% marks</li>
+                        <li><i class="fa-solid fa-check"></i> Watch curated 15-minute video lessons for pure concept clarity</li>
+                        <li><i class="fa-solid fa-check"></i> Practice the top 10 repeated PYQ questions that repeat every year</li>
+                        <li><i class="fa-solid fa-check"></i> Walk in calm, write the high-yield questions, score 34+/70</li>
+                    </ul>
+                    <div class="comparison-outcome good-outcome">
+                        Result: <strong>Subject Cleared • Clean Marksheet • Degree On Track</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW IT WORKS (3-STEP PROTOCOL) -->
+        <div id="how-it-works" class="how-it-works-section">
+            <div class="container section-padding">
+                <div class="section-badge">SYSTEM ARCHITECTURE</div>
+                <h2 class="section-title">Your Comeback in 3 Tactical Steps</h2>
+                <p class="section-subtitle">No fluff. No 12-hour motivational speeches. Just a calculated route to pass.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-num">01</div>
+                        <div class="step-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <h3>Triage Your Situation</h3>
+                        <p>Select your department, pick your backlog subjects, and specify whether you are on a detention break or attending college.</p>
+                        <span class="step-feature"><i class="fa-solid fa-arrow-right"></i> IT, Mech, Chemical & Arch</span>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-num">02</div>
+                        <div class="step-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                        <h3>Get Your Survival Kit</h3>
+                        <p>Our algorithm extracts the exact minimum chapters needed to pass (28 marks cutoff + safety buffer) ranked by marks density.</p>
+                        <span class="step-feature"><i class="fa-solid fa-arrow-right"></i> Skip low-yield modules</span>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-num">03</div>
+                        <div class="step-icon"><i class="fa-solid fa-play-circle"></i></div>
+                        <h3>Execute with Quick Prep</h3>
+                        <p>Access laser-targeted revision videos and the top 10 repeated university questions per chapter. Log your daily study hours.</p>
+                        <span class="step-feature"><i class="fa-solid fa-arrow-right"></i> High-frequency PYQs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUPPORTED DEPARTMENTS -->
+        <div class="container section-padding">
+            <div class="section-badge">SYLLABUS COVERAGE</div>
+            <h2 class="section-title">Curated for Your Engineering Stream</h2>
+            <p class="section-subtitle">Real syllabus schemas, updated weightage, and high-frequency university exam patterns.</p>
+
+            <div class="dept-showcase-grid">
+                <div class="dept-showcase-card">
+                    <div class="dept-showcase-icon">💻</div>
+                    <h3>Information Technology</h3>
+                    <p class="dept-showcase-meta">Sem 1 to Sem 6 • 24 Core Subjects</p>
+                    <ul class="dept-highlights">
+                        <li>Data Structures, OS & Algorithms</li>
+                        <li>Digital Logic & Computer Networks</li>
+                        <li>Maths I, II & Discrete Mathematics</li>
+                    </ul>
+                    <span class="dept-tag">Verified Weightage</span>
+                </div>
+
+                <div class="dept-showcase-card">
+                    <div class="dept-showcase-icon">⚙️</div>
+                    <h3>Mechanical Engineering</h3>
+                    <p class="dept-showcase-meta">Sem 1 to Sem 6 • 20 Core Subjects</p>
+                    <ul class="dept-highlights">
+                        <li>Engineering Mechanics & SOM</li>
+                        <li>Applied Thermodynamics & Heat Transfer</li>
+                        <li>Fluid Mechanics & Machine Design</li>
+                    </ul>
+                    <span class="dept-tag">Verified Weightage</span>
+                </div>
+
+                <div class="dept-showcase-card">
+                    <div class="dept-showcase-icon">🧪</div>
+                    <h3>Chemical Engineering</h3>
+                    <p class="dept-showcase-meta">Sem 1 to Sem 6 • 18 Core Subjects</p>
+                    <ul class="dept-highlights">
+                        <li>Mass & Heat Transfer Operations</li>
+                        <li>Chemical Reaction Engineering (CRE)</li>
+                        <li>Process Dynamics & Instrumentation</li>
+                    </ul>
+                    <span class="dept-tag">Verified Weightage</span>
+                </div>
+
+                <div class="dept-showcase-card">
+                    <div class="dept-showcase-icon">🎨</div>
+                    <h3>Architecture</h3>
+                    <p class="dept-showcase-meta">Sem 1 to Sem 6 • 16 Core Subjects</p>
+                    <ul class="dept-highlights">
+                        <li>Theory of Structures (TOS)</li>
+                        <li>Building Materials & Construction</li>
+                        <li>Environmental Studies & Services</li>
+                    </ul>
+                    <span class="dept-tag">Verified Weightage</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- REAL STUDENT STORIES -->
+        <div class="container section-padding">
+            <div class="section-badge">PROOF OF COMEBACK</div>
+            <h2 class="section-title">From "Almost Detained" to Degree in Hand</h2>
+            <p class="section-subtitle">Real engineering students who faced the backlog mountain and crossed it.</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-quote">"I had 3 KTs in 3rd semester and was literally 1 subject away from a year-down. The Survival Kit for Maths 3 told me to master only Differential Equations and Transforms. I passed with 36 marks."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div>
+                            <strong>Rahul K.</strong>
+                            <span>IT Engineering • 6th Sem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-quote">"Engineering Mechanics gave me nightmares for 2 attempts. The Quick Prep video links and the repeated question list were spot on. Solved the truss problem and passed comfortably."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AP</div>
+                        <div>
+                            <strong>Ananya P.</strong>
+                            <span>Mechanical Engineering • 4th Sem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-quote">"Being on detention break is mentally tough. You feel left behind. Comeback.com gave me a clear daily structure when college didn't. Cleared all 4 backlogs in the summer session."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div>
+                            <strong>Siddharth M.</strong>
+                            <span>Chemical Engineering • Graduated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div id="faq-section" class="container section-padding">
+            <div class="section-badge">FREQUENTLY ASKED QUESTIONS</div>
+            <h2 class="section-title">Answers to Your Exam Anxieties</h2>
+            <p class="section-subtitle">Everything you need to know before putting your study plan on autopilot.</p>
+
+            <div class="faq-container">
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        <span>Can I really pass an engineering exam by studying only 3 chapters?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! University question papers typically have internal choice (e.g. "Attempt 4 questions out of 6"). By thoroughly preparing the top 3 highest-weightage modules, you can answer enough questions to reach 32-40 attempted marks—comfortably clearing the 28/70 passing cutoff without spreading yourself thin.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        <span>What is the difference between Detention Break mode and Ongoing Backlog mode?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If you are on a detention break, you don't have immediate exam timetables, so our engine creates a steady, week-by-week foundational mastery plan. If you are attending regular classes with an upcoming exam date, it calculates a daily high-intensity sprint timeline based on days remaining.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        <span>How are the repeated PYQ questions curated?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We analyze the last 5 years of university question papers for common question themes, compulsory numerical types, and recurring theoretical definitions to identify the top 10 highest-probability questions per chapter.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        <span>Is Comeback.com free to use?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, 100% free. It was built by engineering seniors who experienced backlogs firsthand and wanted to build the tool they wished they had during their toughest semesters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FINAL CTA BANNER -->
+        <div class="container section-padding">
+            <div class="final-cta-card">
+                <div class="final-cta-content">
+                    <h2>Ready to clear that backlog for good?</h2>
+                    <p>Stop stressing and start executing. Your personalized survival roadmap is 60 seconds away.</p>
+                    <button class="btn btn-primary btn-lg" onclick="app.openAuth('register')">
+                        Create Free Account & Start <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTHENTIC HUMAN FOOTER -->
+        <footer class="app-footer">
+            <div class="container footer-content">
+                <div class="footer-col-brand">
+                    <div class="logo">
+                        <span class="logo-icon-wrap"><i class="fa-solid fa-fire-flame-curved"></i></span>
+                        <span class="logo-text">COMEBACK<span class="logo-dot">.COM</span></span>
+                    </div>
+                    <p class="footer-tagline">Built with coffee, late-night grit, and zero BS for engineering students who refuse to quit. You are greater than any marksheet.</p>
+                </div>
+
+                <div class="footer-col-links">
+                    <h4>Navigation</h4>
+                    <a href="#live-demo-section">Survival Demo</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#faq-section">Student FAQ</a>
+                </div>
+
+                <div class="footer-col-links">
+                    <h4>Streams</h4>
+                    <span>💻 Information Technology</span>
+                    <span>⚙️ Mechanical Engineering</span>
+                    <span>🧪 Chemical Engineering</span>
+                    <span>🎨 Architecture</span>
+                </div>
+            </div>
+            
+            <div class="container footer-bottom">
+                <p>© 2026 Comeback.com • The Engineering Student Recovery Platform • All rights reserved.</p>
+            </div>
+        </footer>
     </section>
 
     <!-- 2. AUTH PAGE (Login/Register) -->
@@ -74,7 +459,7 @@
                     <h2 id="auth-title">Welcome Back</h2>
                     <p id="auth-subtitle">Enter your details to access your dashboard</p>
                 </div>
-                
+
                 <form id="auth-form" onsubmit="app.handleAuth(event)">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -88,6 +473,9 @@
                         <label>Password</label>
                         <input type="password" id="password" class="form-control" placeholder="••••••••">
                     </div>
+
+
+
                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                         <span id="auth-btn-text">Login</span>
                     </button>
@@ -99,11 +487,249 @@
             </div>
         </div>
     </section>
+    <!-- DEPARTMENT SELECTION -->
+    <section id="dept-page" class="page-section hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="step-indicator">
+
+                    <div class="step active" id="step-dept">
+                        <span>1</span>
+                        <p>Department</p>
+                    </div>
+
+                    <div class="step" id="step-subjects">
+                        <span>2</span>
+                        <p>Subjects</p>
+                    </div>
+
+                    <div class="step" id="step-dashboard">
+                        <span>3</span>
+                        <p>Dashboard</p>
+                    </div>
+
+                </div>
+
+                <h2 style="text-align:center;">Select Your Engineering Stream</h2>
+                <p class="text-muted" style="text-align:center; margin-bottom:25px;">
+                    We will load your university-verified subject and marking schemes
+                </p>
+
+                <div class="dept-grid">
+                    <div class="dept-card" onclick="app.selectDepartment('IT', this)">
+                        <div class="dept-card-top">
+                            <span class="dept-card-icon">💻</span>
+                            <span class="dept-card-badge">Verified</span>
+                        </div>
+                        <h3>Information Technology</h3>
+                        <p class="dept-card-sub">Sem 1 to Sem 6 • 24 Core Subjects</p>
+                    </div>
+
+                    <div class="dept-card" onclick="app.selectDepartment('Chemical', this)">
+                        <div class="dept-card-top">
+                            <span class="dept-card-icon">🧪</span>
+                            <span class="dept-card-badge">Verified</span>
+                        </div>
+                        <h3>Chemical Engineering</h3>
+                        <p class="dept-card-sub">Process, Reaction & Heat Transfer</p>
+                    </div>
+
+                    <div class="dept-card" onclick="app.selectDepartment('Architecture', this)">
+                        <div class="dept-card-top">
+                            <span class="dept-card-icon">🎨</span>
+                            <span class="dept-card-badge">Verified</span>
+                        </div>
+                        <h3>Architecture</h3>
+                        <p class="dept-card-sub">TOS, Materials & Environmental</p>
+                    </div>
+
+                    <div class="dept-card" onclick="app.selectDepartment('Mechanical', this)">
+                        <div class="dept-card-top">
+                            <span class="dept-card-icon">⚙️</span>
+                            <span class="dept-card-badge">Verified</span>
+                        </div>
+                        <h3>Mechanical Engineering</h3>
+                        <p class="dept-card-sub">Mechanics, SOM & Thermodynamics</p>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:30px;">
+                    <button class="btn btn-primary" onclick="app.goToSubjectSelect()">
+                        Next →
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- SUBJECT SELECTION -->
+    <section id="subject-select-page" class="page-section hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="step-indicator">
+
+                    <div class="step" id="step-dept">
+                        <span>1</span>
+                        <p>Department</p>
+                    </div>
+
+                    <div class="step active" id="step-subjects">
+                        <span>2</span>
+                        <p>Subjects</p>
+                    </div>
+
+                    <div class="step" id="step-dashboard">
+                        <span>3</span>
+                        <p>Dashboard</p>
+                    </div>
+
+                </div>
+
+                <h2 style="text-align:center;">Pick Your Backlog Subjects</h2>
+                <p class="text-muted" style="text-align:center; margin-bottom:25px;">
+                    Select subjects with backlogs from the list
+                </p>
+
+
+                <div id="subject-list"></div>
+
+
+
+
+
+                <div style="display:flex; justify-content:space-between; margin-top:30px;">
+                    <button class="btn btn-outline" onclick="app.navigate('dept')">
+                        ← Back
+                    </button>
+
+                    <button class="btn btn-primary" onclick="app.finishSetup()">
+                        Next →
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- STATUS SELECTION PAGE -->
+    <section id="status-page" class="page-section hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="step-indicator">
+                    <div class="step">
+                        <span>1</span>
+                        <p>Department</p>
+                    </div>
+                    <div class="step">
+                        <span>2</span>
+                        <p>Subjects</p>
+                    </div>
+                    <div class="step active">
+                        <span>3</span>
+                        <p>Status</p>
+                    </div>
+                    <div class="step">
+                        <span>4</span>
+                        <p>Dashboard</p>
+                    </div>
+                </div>
+
+                <h2 style="text-align:center;">What's Your Current Situation?</h2>
+                <p class="text-muted" style="text-align:center; margin-bottom:40px;">
+                    This helps us customize your study plan
+                </p>
+
+                <div class="status-grid">
+                    <div class="status-card" onclick="app.selectStatus('detention', this)">
+                        <div class="status-icon">🏠</div>
+                        <h3>On Detention Break</h3>
+                        <p>Studying from home, no exam dates scheduled yet</p>
+                        <ul class="status-features">
+                            <li>✓ Long-term recovery roadmap</li>
+                            <li>✓ Self-paced learning</li>
+                            <li>✓ No exam pressure</li>
+                        </ul>
+                    </div>
+
+                    <div class="status-card" onclick="app.selectStatus('active', this)">
+                        <div class="status-icon">🎓</div>
+                        <h3>Ongoing Backlog</h3>
+                        <p>Attending college with upcoming exams</p>
+                        <ul class="status-features">
+                            <li>✓ Daily study schedule</li>
+                            <li>✓ Exam countdown tracker</li>
+                            <li>✓ Urgent prep mode</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                    <button class="btn btn-outline" onclick="app.navigate('subject-select')">
+                        ← Back
+                    </button>
+                    <button class="btn btn-primary" onclick="app.finishStatusSelection()">
+                        Continue →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- EXAM DATES SELECTION PAGE -->
+    <section id="exam-dates-page" class="page-section hidden">
+        <div class="container">
+            <div class="calendar-container">
+                <div class="step-indicator">
+                    <div class="step">
+                        <span>1</span>
+                        <p>Department</p>
+                    </div>
+                    <div class="step">
+                        <span>2</span>
+                        <p>Subjects</p>
+                    </div>
+                    <div class="step">
+                        <span>3</span>
+                        <p>Status</p>
+                    </div>
+                    <div class="step active">
+                        <span>4</span>
+                        <p>Exam Dates</p>
+                    </div>
+                    <div class="step">
+                        <span>5</span>
+                        <p>Dashboard</p>
+                    </div>
+                </div>
+
+                <h2 style="text-align:center;">📅 Set Your Exam Dates</h2>
+                <p class="text-muted" style="text-align:center; margin-bottom:40px;">
+                    Pick exam dates for each subject to get your personalized study plan
+                </p>
+
+                <div id="subjects-calendar-list">
+                    <!-- Dynamic subject cards will go here -->
+                </div>
+
+                <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                    <button class="btn btn-outline" onclick="app.navigate('status')">
+                        ← Back
+                    </button>
+                    <button class="btn btn-primary" onclick="app.finishExamDates()">
+                        Finish Setup →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- 3. DASHBOARD LAYOUT (Sidebar + Content) -->
     <section id="dashboard-page" class="page-section hidden">
         <div class="dashboard-layout">
-            
+            <button type="button" class="mobile-menu-btn dashboard-mobile-menu-btn" onclick="app.toggleMobileMenu()"
+                aria-label="Open dashboard menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="sidebar-overlay" onclick="app.closeMobileMenu()"></div>
+
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="sidebar-menu">
@@ -114,7 +740,7 @@
                         <i class="fa-solid fa-book"></i> Add Subjects
                     </div>
                     <div class="menu-item" onclick="app.navigate('dash-plan')">
-                        <i class="fa-solid fa-calendar-days"></i> Study Plan
+                        <i class="fa-solid fa-kit-medical"></i> Survival Kit
                     </div>
                     <div class="menu-item" onclick="app.navigate('dash-progress')">
                         <i class="fa-solid fa-chart-pie"></i> Progress
@@ -130,37 +756,48 @@
 
             <!-- Main Content Area -->
             <main class="main-content">
-                
+
                 <!-- DASHBOARD OVERVIEW -->
                 <div id="dash-overview" class="dash-section fade-in">
                     <h2 id="welcome-msg">Welcome back, Student!</h2>
                     <p class="text-muted">Here is your recovery status today.</p>
-                    
+
                     <div class="stats-grid">
                         <div class="stat-card risk-high">
                             <div class="stat-label">Risk Indicator</div>
-                            <div class="stat-value">High</div>
-                            <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-down"></i> 3 Exams approaching</div>
+                            <div class="stat-value" id="risk-indicator-value">High</div>
+                            <div class="stat-trend trend-down" id="risk-indicator-trend"><i
+                                    class="fa-solid fa-arrow-down"></i> 3 Exams
+                                approaching</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Current Streak</div>
-                            <div class="stat-value">🔥 5 Days</div>
-                            <div class="stat-trend trend-up"><i class="fa-solid fa-fire"></i> Keep it up!</div>
+                        <div class="stat-card stat-score">
+                            <div class="stat-label">Recovery Score</div>
+                            <div class="stat-value" id="recovery-score">0</div>
+                            <div class="stat-trend trend-up" id="recovery-trend">
+                                Calculating...
+                            </div>
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card stat-subjects">
                             <div class="stat-label">Total Subjects</div>
-                            <div class="stat-value">4</div>
-                            <div class="stat-trend">2 Completed</div>
+                            <div class="stat-value">0</div> <!-- ← WILL UPDATE DYNAMICALLY -->
+                            <div class="stat-trend">0 Completed</div> <!-- ← WILL UPDATE DYNAMICALLY -->
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card stat-progress">
                             <div class="stat-label">Overall Progress</div>
                             <div class="stat-value">35%</div>
-                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 35%"></div></div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 35%"></div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="recent-activity">
-                        <h3>Recent Activity</h3>
+                        <div class="section-header-row">
+                            <h3>Recent Activity</h3>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="app.openLogProgressModal()">
+                                Log Progress
+                            </button>
+                        </div>
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -170,7 +807,7 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="activity-table">
                                     <tr>
                                         <td>Mathematics</td>
                                         <td>Oct 24</td>
@@ -193,8 +830,11 @@
                     <div class="form-container">
                         <form onsubmit="app.addSubject(event)">
                             <div class="form-group">
-                                <label>Subject Name</label>
-                                <input type="text" id="sub-name" class="form-control" required placeholder="e.g. Calculus II">
+                                <label>Select Subjects</label>
+                                <p class="text-muted subject-picker-hint">Choose one or more subjects from your department list.</p>
+                                <div id="dashboard-subject-picker-empty" class="text-muted hidden"></div>
+                                <div id="dashboard-subject-picker" class="subject-grid dashboard-subject-grid"></div>
+                                <div id="dashboard-selected-subjects" class="dashboard-selected-subjects"></div>
                             </div>
                             <div class="form-group">
                                 <label>Difficulty</label>
@@ -219,7 +859,7 @@
                                     <th>Subject</th>
                                     <th>Difficulty</th>
                                     <th>Exam Date</th>
-                                    <th>Action</th>
+                                    <th>Progress</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -230,66 +870,184 @@
                 </div>
 
                 <!-- STUDY PLAN -->
+                <!-- SURVIVAL KIT -->
                 <div id="dash-plan" class="dash-section hidden fade-in">
-                    <h2>Your Study Plan</h2>
-                    <div class="plan-grid">
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h3>Mathematics</h3>
-                                <span class="badge badge-hard">Hard</span>
-                            </div>
-                            <p class="plan-time"><i class="fa-regular fa-clock"></i> 2 Hours / Day</p>
-                            <p class="text-muted">Focus: Integration & Differentiation</p>
-                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 60%"></div></div>
+                    <h2>🎯 Survival Kit - Minimum Chapters to Pass</h2>
+                    <p class="text-muted">Select a subject to see the minimum chapters you need to study to pass</p>
+
+                    <div class="form-container" style="margin-top: 25px;">
+                        <div class="form-group">
+                            <label>Select Subject</label>
+                            <select id="survival-subject-select" class="form-control" onchange="app.showSurvivalKit()">
+                                <option value="">-- Choose a subject --</option>
+                            </select>
                         </div>
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h3>Physics</h3>
-                                <span class="badge badge-medium">Medium</span>
-                            </div>
-                            <p class="plan-time"><i class="fa-regular fa-clock"></i> 1.5 Hours / Day</p>
-                            <p class="text-muted">Focus: Mechanics</p>
-                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 40%"></div></div>
-                        </div>
+                    </div>
+
+                    <div id="survival-results" style="display: none; margin-top: 30px;">
+                        <!-- Results will be dynamically inserted here -->
                     </div>
                 </div>
 
                 <!-- PROGRESS -->
                 <div id="dash-progress" class="dash-section hidden fade-in">
-                    <h2>Progress Analytics</h2>
+                    <div class="section-header-row">
+                        <div>
+                            <h2>Progress Analytics</h2>
+                            <p class="text-muted">Track recent study sessions and subject recovery.</p>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="app.openLogProgressModal()">
+                            Log Progress
+                        </button>
+                    </div>
+                    <div class="progress-summary-grid" id="progress-summary-grid">
+                        <div class="form-container progress-summary-card">
+                            <div class="stat-label">Total Logs</div>
+                            <div class="stat-value" id="log-count">0</div>
+                        </div>
+                        <div class="form-container progress-summary-card">
+                            <div class="stat-label">Hours Studied</div>
+                            <div class="stat-value" id="study-hours-total">0h</div>
+                        </div>
+                        <div class="form-container progress-summary-card">
+                            <div class="stat-label">Last Session</div>
+                            <div class="stat-value" id="last-log-date">No logs</div>
+                        </div>
+                    </div>
                     <div class="chart-container">
                         <canvas id="studyChart"></canvas>
+                    </div>
+                    <div class="form-container">
+                        <h3>Subject Recovery Progress</h3>
+                        <div id="subject-progress-list" class="subject-progress-list"></div>
                     </div>
                 </div>
 
                 <!-- QUICK PREP -->
+                <!-- TODO: Build Quick Prep UI Accordion
+- Create subject list (static for now)
+- Each subject expands smoothly (accordion)
+- Show chapters inside subject
+- Use smooth max-height animation (fluid)
+- Highlight selected chapter
+- Do NOT add logic yet
+- Do NOT break layout
+-->
                 <div id="dash-prep" class="dash-section hidden fade-in">
                     <h2>Quick Exam Prep</h2>
-                    <div class="prep-grid">
-                        <div class="video-section">
-                            <div class="video-placeholder">
-                                <div style="text-align: center;">
-                                    <i class="fa-brands fa-youtube" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                                    <p>Video Placeholder</p>
+                    <p class="text-muted">Subject to chapter to questions, with smooth video-led revision flow.</p>
+
+                    <div class="quick-prep-shell">
+                        <div class="quick-prep-subjects-wrap">
+                            <div id="quick-prep-subjects" class="quick-prep-subjects"></div>
+                        </div>
+
+                        <div id="quick-prep-content" class="quick-prep-content">
+                            <div class="video-section quick-prep-video-panel">
+                                <div id="qp-video-skeleton" class="video-skeleton active">
+                                    <div class="video-skeleton-shimmer"></div>
+                                </div>
+                                <div id="qp-video-frame-wrap" class="qp-video-frame-wrap is-loading">
+                                    <iframe id="qp-video" width="100%" height="300" src="" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                </div>
+                                <div id="qp-video-empty" class="qp-video-empty hidden">
+                                    Video is being added for this chapter. Use the questions below for quick revision.
                                 </div>
                             </div>
+
+                            <div id="qp-questions" class="qp-questions"></div>
                         </div>
+                    </div>
+
+                    <div class="prep-grid quick-prep-legacy" style="display: none;">
+
+                        <!-- VIDEO -->
+                        <div class="video-section">
+                            <iframe id="qp-video-legacy" width="100%" height="300"
+                                src="https://www.youtube.com/embed/bPaPhAuoANc" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <!-- CHAPTER LIST -->
                         <div class="notes-section">
-                            <h3>Important Notes</h3>
+                            <h3>Chapters</h3>
+
                             <ul class="notes-list">
-                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Formula Sheet: Chapter 4</li>
-                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Past Paper 2022</li>
-                                <li><i class="fa-solid fa-star" style="color: gold;"></i> Key Concepts: Thermodynamics</li>
+                                <li>
+                                    ⭐ Determinant and Function
+                                </li>
+
+                                <li>
+                                    ⭐ Trigonometry
+                                </li>
+
+                                <li>
+                                    ⭐ Vectors
+                                </li>
+
+                                <li>
+                                    ⭐ Coordinate Geometry
+                                </li>
+
+                                <li>
+                                    ⭐ Limit
+                                </li>
                             </ul>
                         </div>
+
                     </div>
                 </div>
 
-            </main>
-        </div>
-    </section>
+                <div id="log-progress-modal" class="modal-overlay" style="display: none;">
+                    <div class="modal-card">
+                        <div class="section-header-row">
+                            <div>
+                                <h3>Log Study Progress</h3>
+                                <p class="text-muted">Add a study session and update the matching subject safely.</p>
+                            </div>
+                            <button type="button" class="modal-close-btn" onclick="app.closeLogProgressModal()">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
 
-    <!-- Link to JS (We will add this in the next step) -->
-    <script src="script.js"></script>
+                        <form id="log-progress-form" onsubmit="app.submitProgressLog(event)">
+                            <div class="form-group">
+                                <label for="log-subject">Subject</label>
+                                <select id="log-subject" class="form-control" required>
+                                    <option value="">-- Choose a subject --</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="log-description">Description</label>
+                                <textarea id="log-description" class="form-control" rows="4" required
+                                    placeholder="What did you study today?"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="log-hours">Hours Studied</label>
+                                <input type="number" id="log-hours" class="form-control" min="0.5" step="0.5" required
+                                    placeholder="e.g. 2.5">
+                            </div>
+
+                            <div class="modal-actions">
+                                <button type="button" class="btn btn-outline"
+                                    onclick="app.closeLogProgressModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Log</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Firebase Compat -->
+                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+                <script src="script.js"></script>
 </body>
+
 </html>
